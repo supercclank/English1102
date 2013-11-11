@@ -1,0 +1,51 @@
+<?php
+
+$imageFile = 'ImageName.jpg';
+$source = imagecreatefromjpeg($imageFile);
+list($width,$height,$type, $attribute) = getimagesize($imageFile);
+$splitInt = '150';
+
+$modWidth = $width % $splitInt;
+$modHeight = $hiehgt % $splitInt;
+
+	if($modWidth > 0) {
+		$newWidth = intval($width / $splitInt) * $splitInt + 100;
+	}
+	else {
+		  $newWidth = $width;
+		 }
+
+	if ($modHeight > 0) {
+	        $newHeight = intval($height / $splitInt) * $splitInt + 100;
+	} 
+	else {
+	        $newHeight = $height;
+	    }
+    if ($width > 1200) {
+        $width = 1200;
+        $newWidth = 1200;
+    }
+
+    $newImage = imagecreatetruecolor($newWidth, $newHeight);
+    $image = imagecreatefromjpeg($imageFile);
+
+    imagecopyresampled($newImage, $image, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+    imagejpeg($newImage, $imageFile, 100);
+
+    $xComponent = intval($newWidth / $splitInt);
+    $yComponent = intval($newHeight / $splitInt);
+
+    $wintring = '';
+    $imageNames = '';
+
+    $source = imagecreatefromjpeg($imageFile);
+    $dest = imagecreatetruecolor($splitInt, $splitInt);
+
+    for ($x = 0; $x < $xComponent; $x++) {
+        for ($y = 0; $y < $xComponent; $y++) {
+            $imageName = $imageFile." ".$x." ".$y; 
+            imagecopy($dest, $source, 0, 0, $x * $splitInt, $y * $splitInt, $splitInt, $splitInt);
+            imagejpeg($dest, $imageName.".jpg");
+        }
+    }
+?>
