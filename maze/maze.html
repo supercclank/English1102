@@ -11,12 +11,29 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
 
 <style type="text/css">
-.maze-square{
-    width: 50px;
-    height: 50px;
-    border: 1px solid #222;
+body{
+    background: #222;
+}
+
+#maze-container{
+    width: 1000px;
+    margin: auto;
+}
+
+#maze-container .maze-square{
+    width: 10px;
+    height: 10px;
     float: left;
 }
+
+#maze-container .wall{
+    background: #222;
+}
+
+#maze-container .path{
+    background: #fff;
+}
+
 </style>
  
 <script type="text/javascript" src="maze.js"></script>

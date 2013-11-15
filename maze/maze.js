@@ -27,39 +27,29 @@ function Maze(x, y) {
     }
 }
 
-function MazeSquare(n, s, e, w) {
-    this.north = n;
-    this.south = s;
-    this.east = e;
-    this.west = w;
+function MazeSquare(a) {
+    this.active = a ? true : false;
 
     this.randomize = function() {
-        this.north = false;
-        this.south = false;
-        this.east = false;
-        this.west = false;
+        if(Math.random() > 0.5)
+            this.active = true;
+    }
 
-        if(Math.random() > 0.5)
-            this.north = true;
-        if(Math.random() > 0.5)
-            this.south = true;
-        if(Math.random() > 0.5)
-            this.east = true;
-        if(Math.random() > 0.5)
-            this.west = true;
+    this.isActive = function() {
+        return this.active;
+    }
+
+    this.subclass = function() {
+        return this.active ? 'path' : 'wall';
     }
 
     this.html = function() {
-        return "<div class='maze-square' style='border-left-color: " 
-            + (this.west ? "#222" : "#fff") + 
-            "; border-right-color: " + (this.east ? "#222" : "#fff") + 
-            "; border-top-color: " + (this.north ? "#222" : "#fff") + 
-            "; border-bottom-color: " + (this.south ? "#222" : "#fff") + ";'></div>";
+        return "<div class='maze-square " + this.subclass()  + "'></div>";
     }
 }
 
 $('document').ready(function(){
-    maze = new Maze(20, 10);
+    maze = new Maze(100, 50);
 
     maze.generate();
     maze.add($('#maze-container'));
