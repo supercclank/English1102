@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<link href="main.css" rel="stylesheet" type="text/css" />
+
+<head>
+<style type="text/css">
+#PuzzleArea
+{
+border:1px solid red;
+width: 750px;
+height: 750px;
+}
+.prompt
+{
+border:1px solid gray;
+width: 100px;
+height: 150px;
+}
+</style>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+ var teasers = [];
+ var answers = [];
+ teasers.push("<div id='prompt1' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 95px;'></input><button type='button' style='width: 95px;' onclick='check(this)'>Check Answer</button></div>");
+ teasers.push("<div id='prompt2' class='prompt'><p>asfas</p></div>");
+ teasers.push("<div id='prompt3' class='prompt'><p>asfas</p></div>");
+ teasers.push("<div id='prompt4' class='prompt'><p>asfas</p></div>");
+ teasers.push("<div id='prompt5' class='prompt'><p>asfas</p></div>");
+ teasers.push("<div id='prompt6' class='prompt'><p>asfas</p></div>");
+ teasers.push("<div id='prompt7' class='prompt'><p>asfas</p></div>");
+
+ answers.push("answer1");
+ answers.push("answer2");
+ answers.push("answer3");
+ answers.push("answer4");
+ answers.push("answer5");
+ answers.push("answer6");
+ answers.push("answer7");
+
+$(document).ready(makePuzzle);
+
+function makePuzzle(){
+	alert(teasers);
+	alert(teasers.length);
+	 for (var x =0; x<teasers.length; x++){
+		$(".slidePuzzle").append(teasers[x]);
+	 }
+}
+
+function check(that){
+	var x = $(that).parent().attr('id');
+	var promptNumber = x[6];
+	var y = $('#' + x + ' > input').val();
+	alert(promptNumber);
+	alert(answers[parseInt(promptNumber)]);
+	if (y===answers[parseInt(promptNumber)-1]){
+		alert("wooh");
+	}
+}
+</script>
+
+</head>
+<body>
+
+<div id="PuzzleArea" class="slidePuzzle"></div>
+</body>
+</html>
