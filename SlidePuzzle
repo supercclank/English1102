@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<link href="main.css" rel="stylesheet" type="text/css" />
+
+<head>
+<style type="text/css">
+#PuzzleArea
+{
+border:1px solid red;
+width: 750px;
+height: 750px;
+}
+.piece
+{
+border:1px solid gray;
+width: 150px;
+height: 150px;
+}
+</style>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+	var numPieces = 25;
+	var pieces = [];
+	var numLeft = numPieces -1;
+	var locations = [];
+	var numbers = new Array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24);
+	var initialState = [];
+	var lastIndex = -1;
+for(var c=0; c<Math.sqrt(numPieces); c++){
+	locations.push(new Array());
+	locations.push(new Array());
+	locations.push(new Array());
+	locations.push(new Array());
+}
+
+$(document).ready(makePuzzle);
+
+function makePuzzle(){
+	$(".slidePuzzle").append("<table id= 'playTable' class='pTable'>");
+	var loopVar = Math.sqrt(numPieces);
+		populatePieces(loopVar);
+	for(var x=0; x<loopVar; x++){
+		$(".slidePuzzle").append("<tr>");
+		for(var y=0; y<loopVar;y++){
+			var string = getRandomPiece();
+			initialState.push(numbers[lastIndex]);
+			initialState.splice(lastIndex,1);
+			$(".slidePuzzle").append("<td><div class='piece' id='gamePiece"+x+y+"' ><img src='"+string+"'></div></td>");
+			locations[x][y]=string;
+		}
+		$(".slidePuzzle").append("</tr>");
+	}
+	$(".slidePuzzle").append("</table>");
+	checkInversion();
+}
+function populatePieces(loopVar){
+for(var x=0; x<loopVar; x++){
+	for(var y=0; y<loopVar;y++){
+		if(x+y!=8){
+		pieces.push("cat"+ x +""+ y +".jpg");
+	}
+		}
+	}
+}
+
+function getRandomPiece(){
+	var index = Math.floor((Math.random()*numLeft));
+	numLeft--;
+	var returnString = pieces[index];
+	pieces.splice(index,1);
+	setLastIndex(index);
+	if(numLeft == -1){
+		return "x.png";
+	}
+	return returnString;
+	
+}
+
+function setLastIndex(index){
+	lastIndex = index;
+}
+
+function swap(clickedObject){
+	    var clickedPlace = clickedObject.children('img').attr('src');
+		var xPos;
+		var yPos;
+	for (var x=0; x<locations.length; x++){
+		var array = locations[x];
+		var found = array.indexOf(clickedPlace);
+		if(found>=0){
+			xPos = x;
+			yPos = found;
+		}
+	}
+	xPosMinus = xPos-1;
+	xPosPlus = xPos+1;
+	yPosMinus = yPos-1;
+	yPosPlus = yPos+1;
+	if(xPosMinus>=0){
+		
+		if(locations[xPosMinus][yPos]==="x.png"){
+			shift(clickedObject,xPos,yPos,xPosMinus,yPos);
+		}
+	}
+	if(xPosPlus<=Math.sqrt(numPieces)){
+		
+		if(locations[xPosPlus][yPos]==="x.png"){
+			shift(clickedObject,xPos,yPos,xPosPlus,yPos);
+		}
+	}
+	if(yPosPlus<=Math.sqrt(numPieces)){
+		
+		if(locations[xPos][yPosPlus]==="x.png"){
+			shift(clickedObject,xPos,yPos,xPos,yPosPlus);
+		}
+	}
+	if(yPosMinus>=0){
+		
+		if(locations[xPos][yPosMinus]==="x.png"){
+			shift(clickedObject,xPos,yPos,xPos,yPosMinus);
+		}
+	}
+
+}
+
+$(document).on('click', ".piece" , function() {
+     var test =  $(this).prop('id');
+     
+     swap($(this));
+});
+
+function shift(clickedObject, x1, y1, x2, y2){
+	var blankSpace = $("#gamePiece"+x2+y2);
+	var hold = clickedObject.children('img').attr('src');
+	clickedObject.children('img').attr('src', blankSpace.children('img').attr('src'));
+	blankSpace.children('img').attr('src',hold);
+	locations[x1][y1]=clickedObject.children('img').attr('src');
+	locations[x2][y2]=blankSpace.children('img').attr('src');
+	checkCorrect();
+}
+
+ function checkCorrect(){
+ 	var correct = 0;
+	for (var x = 0; x < locations.length; x++){
+		for (var y = 0; y < locations.length; y++){
+			if(locations[x][y]==="cat"+ y +""+ x +".jpg"){
+				correct++;
+			}
+		}
+}
+	if(correct == 24){
+		alert("YOU WIN");
+	}
+ }
+
+  function checkInversion(){
+  		var numInversions = 0;
+  		var ourNumber = -1;
+  	for (var x = 0; x < initialState.length; x++){
+  		ourNumber = initialState[x];
+  		for (var y=x+1;y<initialState.length; y++){
+	  		if (initialState[y]<ourNumber&&initialState[y]!=0){
+	  			numInversions++;
+	  		}
+  		}
+  	}
+  	if (numInversions%2==1){
+  		 $("#PuzzleArea").html("");
+  		numPieces = 25;
+		pieces = [];
+		numLeft = numPieces -1;
+	 	locations = [];
+		numbers = new Array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24);
+	 	initialState = [];
+		lastIndex = -1;
+		for(var c=0; c<Math.sqrt(numPieces); c++){
+			locations.push(new Array());
+			locations.push(new Array());
+			locations.push(new Array());
+			locations.push(new Array());
+	}
+  		makePuzzle();
+  	}
+  }
+</script>
+</head>
+<body>
+
+<div id="PuzzleArea" class="slidePuzzle"></div>
+</body>
+</html>
