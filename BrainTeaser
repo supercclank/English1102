@@ -43,8 +43,6 @@ height: 150px;
 $(document).ready(makePuzzle);
 
 function makePuzzle(){
-	alert(teasers);
-	alert(teasers.length);
 	 for (var x =0; x<teasers.length; x++){
 		$(".slidePuzzle").append(teasers[x]);
 	 }
@@ -54,11 +52,16 @@ function check(that){
 	var x = $(that).parent().attr('id');
 	var promptNumber = x[6];
 	var y = $('#' + x + ' > input').val();
-	alert(promptNumber);
-	alert(answers[parseInt(promptNumber)]);
 	if (y===answers[parseInt(promptNumber)-1]){
 		alert("wooh");
+		setPicture(x);
 	}
+}
+
+function setPicture(id){
+	div = "#"+id;
+	$(div).html("<img src='correct.png'>");
+	// /$(div).children('img').attr('src','correct.png');
 }
 </script>
 
