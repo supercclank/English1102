@@ -565,6 +565,8 @@ input.cell {
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 </script>
 <script>
+var solution = "abcdefgh";
+var totalLetters = 8;
 $(document).ready(
 new function(){
 	$('td.empty').append("<input type='text' maxlength='1' class='cell'></input>");
@@ -573,10 +575,17 @@ new function(){
 	);
 
 function check(){
-	var idarray=[];
-	$('.cell').each(function(){idarray.push($(this).val());});
-	//var text = $('.cell').val();
-	alert(idarray);
+	var guess=[];
+	var numCorrect = 0;
+	$('.cell').each(function(){guess.push($(this).val());});
+	for (var x =0; x <guess.length; x++){
+		if(guess[x] === solution[x]){
+			numCorrect++;
+		}
+	}
+	if(numCorrect == totalLetters){
+		alert("puzzle complete");
+	}
 }
 </script>
 </html>
