@@ -10,11 +10,27 @@ border:1px solid red;
 width: 750px;
 height: 750px;
 }
+
 .prompt
 {
 border:1px solid gray;
-width: 100px;
-height: 150px;
+width: 185px;
+height: 185px;
+margin: 0;
+padding: 0;
+}
+
+.prompt img
+{
+max-width: 185px;
+max-height: 185px;
+float: left;
+}
+
+.pTable td
+{
+height: 185px;
+max-height: 185px;
 }
 </style>
 
@@ -24,23 +40,38 @@ height: 150px;
 <script>
  var teasers = [];
  var answers = [];
- teasers.push("<div id='prompt1' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 95px;'></input><button type='button' style='width: 95px;' onclick='check(this)'>Check Answer</button></div>");
 
-  teasers.push("<div id='prompt2' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 95px;'></input><button type='button' style='width: 95px;' onclick='check(this)'>Check Answer</button></div>");
+ teasers.push("<div id='prompt1' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 180px;'></input><button type='button' style='width: 185px;' onclick='check(this)'>Check Answer</button></div>");
 
- teasers.push("<div id='prompt3' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 95px;'></input><button type='button' style='width: 95px;' onclick='check(this)'>Check Answer</button></div>");
+  teasers.push("<div id='prompt2' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 180px;'></input><button type='button' style='width: 185px;' onclick='check(this)'>Check Answer</button></div>");
 
- teasers.push("<div id='prompt4' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 95px;'></input><button type='button' style='width: 95px;' onclick='check(this)'>Check Answer</button></div>");
+ teasers.push("<div id='prompt3' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 180px;'></input><button type='button' style='width: 185px;' onclick='check(this)'>Check Answer</button></div>");
 
- teasers.push("<div id='prompt5' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 95px;'></input><button type='button' style='width: 95px;' onclick='check(this)'>Check Answer</button></div>");
+ teasers.push("<div id='prompt4' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 180px;'></input><button type='button' style='width: 185px;' onclick='check(this)'>Check Answer</button></div>");
 
- teasers.push("<div id='prompt6' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 95px;'></input><button type='button' style='width: 95px;' onclick='check(this)'>Check Answer</button></div>");
+ teasers.push("<div id='prompt5' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 180px;'></input><button type='button' style='width: 185px;' onclick='check(this)'>Check Answer</button></div>");
 
- teasers.push("<div id='prompt7' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 95px;'></input><button type='button' style='width: 95px;' onclick='check(this)'>Check Answer</button></div>");
+ teasers.push("<div id='prompt6' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 180px;'></input><button type='button' style='width: 185px;' onclick='check(this)'>Check Answer</button></div>");
 
- teasers.push("<div id='prompt8' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 95px;'></input><button type='button' style='width: 95px;' onclick='check(this)'>Check Answer</button></div>");
+ teasers.push("<div id='prompt7' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 180px;'></input><button type='button' style='width: 185px;' onclick='check(this)'>Check Answer</button></div>");
 
- teasers.push("<div id='prompt9' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 95px;'></input><button type='button' style='width: 95px;' onclick='check(this)'>Check Answer</button></div>");
+ teasers.push("<div id='prompt8' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 180px;'></input><button type='button' style='width: 185px;' onclick='check(this)'>Check Answer</button></div>");
+
+ teasers.push("<div id='prompt9' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 180px;'></input><button type='button' style='width: 185px;' onclick='check(this)'>Check Answer</button></div>");
+
+ teasers.push("<div id='prompt10' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 180px;'></input><button type='button' style='width: 185px;' onclick='check(this)'>Check Answer</button></div>");
+
+ teasers.push("<div id='prompt11' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 180px;'></input><button type='button' style='width: 185px;' onclick='check(this)'>Check Answer</button></div>");
+
+ teasers.push("<div id='prompt12' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 180px;'></input><button type='button' style='width: 185px;' onclick='check(this)'>Check Answer</button></div>");
+
+ teasers.push("<div id='prompt13' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 180px;'></input><button type='button' style='width: 185px;' onclick='check(this)'>Check Answer</button></div>");
+
+ teasers.push("<div id='prompt14' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 180px;'></input><button type='button' style='width: 185px;' onclick='check(this)'>Check Answer</button></div>");
+
+ teasers.push("<div id='prompt15' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 180px;'></input><button type='button' style='width: 185px;' onclick='check(this)'>Check Answer</button></div>");
+
+ teasers.push("<div id='prompt16' class='prompt'><img src='BrainTeaser1.jpg'><input type='text' style='width: 180px;'></input><button type='button' style='width: 185px;' onclick='check(this)'>Check Answer</button></div>");
 
  answers.push("answer1");
  answers.push("answer2");
@@ -51,23 +82,31 @@ height: 150px;
  answers.push("answer7");
  answers.push("answer8");
  answers.push("answer9");
+ answers.push("answer10");
+ answers.push("answer11");
+ answers.push("answer12");
+ answers.push("answer13");
+ answers.push("answer14");
+ answers.push("answer15");   
+ answers.push("answer16");
 
 $(document).ready(makePuzzle);
 
 function makePuzzle(){
+		 	$(".pTable").append(" <tr> ");
 	 for (var x =0; x<teasers.length; x++){
-	 	if(x%6==0){
-	 		 $(".pTable").append("</tr> "+" <tr>");
+	 	if((x%4==0)&&(x!=0)){
+	 		 $(".pTable").append(" </tr> "+" <tr> ");
 	 	}
-		$(".pTable").append("<td>"+teasers[x]+"</td>");
+		$(".pTable tr:last").append(" <td> "+teasers[x]+" </td> ");
 	 }
-	 $(".pTable").append("</tr>");
+	 $(".pTable").append(" </tr> ");
 }
 
 function check(that){
 	var id = $(that).parent().attr('id');
 	alert(id);
-	var promptNumber = id[6];
+	var promptNumber = id.substr(6);
 	var y = $('#' + id + ' > input').val();
 	if (y===answers[parseInt(promptNumber)-1]){
 		alert("wooh");
@@ -77,7 +116,9 @@ function check(that){
 
 function setPicture(id){
 	div = "#"+id;
+	alert($(div).html());
 	$(div).html("<img src='correct.png'>");
+	alert($(div).html());
 	//$(div).children('img').attr('src','correct.png');
 }
 </script>
@@ -87,7 +128,6 @@ function setPicture(id){
 
 <div id="PuzzleArea" class="slidePuzzle">
 	<table id='puzzleTable' class='pTable' border="0" cellspacing="0">
-		<tr>
 	</table>
 </div>
 
