@@ -60,7 +60,7 @@ function populatePieces(loopVar){
 for(var x=0; x<loopVar; x++){
 	for(var y=0; y<loopVar;y++){
 		if(x+y!=8){
-		pieces.push("cat"+ x +""+ y +".jpg");
+		pieces.push("nintendo"+ x +""+ y +".jpg");
 	}
 		}
 	}
@@ -139,20 +139,22 @@ function shift(clickedObject, x1, y1, x2, y2){
 	blankSpace.children('img').attr('src',hold);
 	locations[x1][y1]=clickedObject.children('img').attr('src');
 	locations[x2][y2]=blankSpace.children('img').attr('src');
-	checkCorrect();
+	if(checkCorrect()){
+		alert("You win");
+	}
 }
 
  function checkCorrect(){
  	var correct = 0;
 	for (var x = 0; x < locations.length; x++){
 		for (var y = 0; y < locations.length; y++){
-			if(locations[x][y]==="cat"+ y +""+ x +".jpg"){
+			if(locations[x][y]==="nintendo"+ y +""+ x +".jpg"){
 				correct++;
 			}
 		}
 }
 	if(correct == 24){
-		alert("YOU WIN");
+		return true;
 	}
  }
 
