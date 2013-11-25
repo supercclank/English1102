@@ -116,11 +116,10 @@ function makePuzzle(){
 
 function check(that){
 	var id = $(that).parent().attr('id');
-	alert(id);
 	var promptNumber = id.substr(6);
 	var y = $('#' + id + ' > input').val();
 	if (y===answers[parseInt(promptNumber)-1]){
-		alert("wooh");
+		alert("wooh, you got that right");
 		setPicture(id);
 		numCorrect++;
 	}
@@ -131,9 +130,7 @@ function check(that){
 
 function setPicture(id){
 	div = "#"+id;
-	alert($(div).html());
 	$(div).html("<img src='correct.png'>");
-	alert($(div).html());
 	//$(div).children('img').attr('src','correct.png');
 }
 </script>
@@ -142,6 +139,7 @@ function setPicture(id){
 <body>
 
 <div id="PuzzleArea" class="slidePuzzle">
+<a href="../index.html">Back to the main site</a>
 	<table id='puzzleTable' class='pTable' border="0" cellspacing="0">
 	</table>
 </div>

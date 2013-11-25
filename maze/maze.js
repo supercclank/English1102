@@ -1,5 +1,5 @@
 $('document').ready(function(){
-    game = new MazeGame('maze-container', 100, 50);
+    game = new MazeGame('maze-container', 40, 30);
 });
 
 function MazeGame(id, x, y) {
@@ -40,6 +40,8 @@ function Maze(x, y) {
 
     this.x = x;
     this.y = y;
+
+    this.map = [];
 
     this.entrance = null;
     this.exit = null;

@@ -83,6 +83,7 @@ body{
 
 <body> 
 	<div id="container">
+	<a href="../index.html">Back to the main site</a>
 		<div id="game"></div>
 
 		<div id="options">
