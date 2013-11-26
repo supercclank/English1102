@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery UI Draggable - Snap to element or grid</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <style>
+
+  .draggable { 
+  	width: 150px; 
+  	height: 150px; 
+  	float: left; 
+  	margin: 0 10px 10px 0; 
+  	font-size: .9em;
+  }
+
+  .ui-widget-header p, .ui-widget-content p { margin: 0;  	width : 150px;
+  	height: 150px; }
+  
+  .snaptarget { 
+ 
+  }
+  </style>
+  <script>
+ 
+
+  $(document).ready(
+  	makePuzzle
+  	);
+
+  function makePuzzle(){
+  	for(var x=0; x<5; x++){
+  		$("#puzzleTable").append("<tr>");
+		for(var y=0; y<5; y++){
+				$("#puzzleTable tr:last").append("<td> <div id='draggable"+x+y+"' class='draggable ui-widget-content'> <img src='GameVase "+x+y+".jpg'> </div> </td>");
+		  	}
+		$("#puzzleTable").append("</tr>");
+  	}
+
+	for(var x=0; x<5; x++){
+	  		$("#snapTargets").append("<tr>");
+			for(var y=0; y<5; y++){
+					$("#snapTargets tr:last").append("<td> <div id='snaptarget"+y+x+"' class='ui-widget-header'> <p>I'm a snap target</p> </div> </td>");
+			  	}
+			$("#snapTargets").append("</tr>");
+	  	}
+
+ }
+  	 $(function() {
+  //   $( ".draggable" ).draggable({ snap: ".ui-widget-header"});
+  // });
+
+	$(".draggable").draggable({
+	    snap: ".ui-widget-header",
+	     stop: function(event, ui) {
+	    	    /* Get the possible snap targets: */
+	    	// alert(this.id);
+	        var snapped = $(this).data("ui-draggable").snapElements;
+	        var id = $(this).children('img').attr("src");
+	        // alert(id);
+	        var xx = parseInt(id[9]);
+	        var yy = parseInt(id[10]);
+	        // alert(id);
+	        // alert(snapped);
+	        var x1 = xx - 1;
+	        var y1 = yy - 1;
+	        var x2 = xx + 1;
+	        var y2 = yy + 1;
+	        var bool = true;
+	    //      Pull out only the snap targets that are "snapping": 
+	         var snappedTo = $.map(snapped, function(element) {
+	         	//alert(snapped);
+	             return element.snapping ? element.item : null;
+	         });
+	         var snappedToIds = [];
+	       for (var x=0; x<snappedTo.length; x++){
+	       		snappedToIds.push(snappedTo[x].id);
+	       }
+	       // alert(snappedToIds);
+	       // alert(xx);
+	       // alert(yy);
+	       // alert(x1);
+	       // alert(y1);
+	       // alert(x2);
+	       // alert(y2);
+	       // alert(x1>=0);
+	       if(x1>=0){
+	       		if(snappedToIds.indexOf("snaptarget"+x1+yy)>-1){
+	       			// alert("AA");
+	       		}
+	       		else bool = false;
+	       }
+	       // alert("qq1");
+	       if(y1>=0){
+	       		// alert("derp1");
+	       		if(snappedToIds.indexOf("snaptarget"+xx+y1)>-1){
+	       			// alert("AA");
+	       		}
+	       		else bool = false;
+	       }
+	       // alert("qq2");
+	       if(x1>=0&&y1>=0){
+	       		if(snappedToIds.indexOf("snaptarget"+x1+y1)>-1){
+	       			// alert("AA");
+	       		}
+	       		else bool = false;
+	       }
+	       // alert("qq3");
+			if(x2<=4){
+				// alert("derp2");
+	       		if(snappedToIds.indexOf("snaptarget"+x2+yy)>-1){
+	       			// alert("AA");
+	       		}
+	       		else bool = false;
+	       }
+	       // alert("qq4");
+	       if(y2<=4){
+	       		if(snappedToIds.indexOf("snaptarget"+xx+y2)>-1){
+	       			// alert("AA");
+	       		}
+	       		else bool = false;
+	       }
+	        // alert("qq5");
+	       if(x2<=4&&y2<=4){
+	       		if(snappedToIds.indexOf("snaptarget"+x2+y2)>-1){
+	       			// alert("AA");
+	       		}
+	       		else bool = false;
+	       }
+	        if(x2<=4&&y1>=0){
+	       		if(snappedToIds.indexOf("snaptarget"+x2+y1)>-1){
+	       			// alert("AA");
+	       		}
+	       		else bool = false;
+	       }
+	        if(x1>=0&&y2<=4){
+	       		if(snappedToIds.indexOf("snaptarget"+x1+y2)>-1){
+	       			// alert("AA");
+	       		}
+	       		else bool = false;
+	       }
+	        // alert("qq6");
+	       if(bool){
+	       		if(snappedToIds.indexOf("snaptarget"+xx+yy)>-1){
+	       			// alert("AA");
+	       		}
+	       		else bool = false;
+	       }
+		       if(bool){		
+		    	   // alert("wooh");
+		    	   $("#"+this.id).draggable( "destroy" )
+		   		}
+	    }
+	         });
+	
+	     
+	});
+
+  
+  </script>
+</head>
+<body>
+  
+<br style="clear:both">
+<table id='snapTargets' class='pTable' border="0" cellspacing="0">
+	</table>
+
+ <table id='puzzleTable' class='pTable' border="0" cellspacing="0">
+	</table>
+
+</body>
+</html>
