@@ -183,13 +183,13 @@ function rotate(){
 
     var temp = new Array(4);
 
-    for(var i = 0; i < 4;i++){
+    for(var i = 0; i < 4; i++){
 
-        temp[i] = new Array(4);
+        temp[3 - i] = new Array(4);
 
         for(var j = 0; j < 4;j++){
 
-            temp[i][j] = block[3-j][i];
+            temp[3 - i][j] = block[j][i];
 
         }
 

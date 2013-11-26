@@ -15,14 +15,20 @@ body{
     background: #222;
 }
 
+#container{
+    width: 720px;
+    margin:auto;
+}
+
 #maze-container{
-    width: 1000px;
-    margin: auto;
+    width: 720px;
+    height: 540px;
+    float: left;
 }
 
 #maze-container .maze-square{
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     float: left;
 }
 
@@ -34,12 +40,20 @@ body{
     background: #fff;
 }
 
-.person{
-    width: 8px;
-    height: 8px;
+#person{
+    width: 16px;
+    height: 16px;
     margin: 1px;
     float: left;
     background: #FF0000;
+}
+
+#exit{
+    width: 16px;
+    height: 16px;
+    margin: 1px;
+    float: left;
+    background: #000;
 }
 
 </style>
@@ -50,9 +64,10 @@ body{
 
 <body> 
     <div id="container">
-    <a href="../index.html">Back to the main site</a>
+    
         <div id="maze-container">
         </div>
+        <a href="../index.html">Back to the main site</a>
     </div>
 </body>
 </html>
