@@ -6,9 +6,8 @@
 <style type="text/css">
 #PuzzleArea
 {
-border:1px solid red;
 width: 750px;
-height: 750px;
+height: 625px;
 }
 
 .prompt
@@ -121,7 +120,8 @@ function check(that){
 		numCorrect++;
 	}
 	if (numCorrect == numNeeded){
-		alert("done");
+		//alert("done");
+			 $("#correct").append("<a href='http://www.google.com'>--></a>");
 	}
 }
 
@@ -140,6 +140,7 @@ function setPicture(id){
 	<table id='puzzleTable' class='pTable' border="0" cellspacing="0">
 	</table>
 </div>
+<div id="correct"></div>
 
 </body>
 </html>
