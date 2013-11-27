@@ -1,0 +1,44 @@
+body{
+    background: #222;
+}
+
+#container{
+    width: 720px;
+    margin:auto;
+}
+
+#maze-container{
+    width: 720px;
+    height: 540px;
+    float: left;
+}
+
+#maze-container .maze-square{
+    width: 18px;
+    height: 18px;
+    float: left;
+}
+
+#maze-container .wall{
+    background: #222;
+}
+
+#maze-container .path{
+    background: #fff;
+}
+
+#person{
+    width: 16px;
+    height: 16px;
+    margin: 1px;
+    float: left;
+    background: #FF0000;
+}
+
+#exit{
+    width: 16px;
+    height: 16px;
+    margin: 1px;
+    float: left;
+    background: #000;
+}
