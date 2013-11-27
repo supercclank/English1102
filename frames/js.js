@@ -25,6 +25,10 @@ function frameHandler() {
         return r;
     }
 
+    this.advanceHook = function(i, j) {
+        //Option function to be overwritten
+    }
+
     this.advance = function() {
         if(!this.text()) {
             $('#container > div:first').slideDown(500);
@@ -41,12 +45,27 @@ function frameHandler() {
             $('#container .textarea .text').html(this.text());
             this.textCount++;
         }
+        this.advanceHook(this.count, this.textCount - 1);
     }
 }
 
 $(document).ready(function() {
     f = new frameHandler();
     f.advance();
+
+    img = new Array();
+    $('.image').each(function(i) {
+        bg_url = $(this).css('background-image');
+        
+        // ^ Either "none" or url("...urlhere..")
+        bg_url = /^url\((['"]?)(.*)\1\)$/.exec(bg_url);
+        bg_url = bg_url ? bg_url[2] : "";
+        
+        img[i] = new Image();
+        img[i].src = bg_url;
+        
+        i++;
+    });
 
     $(document).keypress(function(e) {
         if(e.which == 13) {

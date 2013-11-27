@@ -18,6 +18,7 @@ body {
 }
 
 #invisible {
+    display: none;
     position: absolute;
     top: -9999px;
     left: -9999px;
@@ -90,12 +91,14 @@ body {
     position: relative;
     top: -9999px;
     left: -9999px;
+    display: none;
 }
 
 .image p {
     position: relative;
     top: -9999px;
     left: -9999px;
+    display: none;
 }
 
 .block-link {
@@ -114,7 +117,7 @@ body {
     color: #FFFF00;
 }
 
-#start-link {
+.start-link {
     width: 300px;
     height: 70px;
     position: relative;
