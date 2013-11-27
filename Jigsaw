@@ -12,20 +12,20 @@
   .draggable { 
   	width: 150px; 
   	height: 150px; 
-  	float: left; 
-  	margin: 0 10px 10px 0; 
   	font-size: .9em;
   }
 
-  .ui-widget-header p, .ui-widget-content p { margin: 0;  	width : 150px;
+  .ui-widget-header p, .ui-widget-content p { 
+  	margin: 0;  	
+  	width : 150px;
   	height: 150px; }
   
-  .snaptarget { 
- 
-  }
+
   </style>
+
   <script>
- 
+  var numCorrect = 0;
+  var numNeeded = 25;
 
   $(document).ready(
   	makePuzzle
@@ -50,11 +50,9 @@
 
  }
   	 $(function() {
-  //   $( ".draggable" ).draggable({ snap: ".ui-widget-header"});
-  // });
 
 	$(".draggable").draggable({
-	    snap: ".ui-widget-header",
+	    snap: ".ui-widget-header", snapMode: "inner",
 	     stop: function(event, ui) {
 	    	    /* Get the possible snap targets: */
 	    	// alert(this.id);
@@ -72,86 +70,56 @@
 	        var bool = true;
 	    //      Pull out only the snap targets that are "snapping": 
 	         var snappedTo = $.map(snapped, function(element) {
-	         	//alert(snapped);
+	         	// alert(snapped);
 	             return element.snapping ? element.item : null;
 	         });
 	         var snappedToIds = [];
 	       for (var x=0; x<snappedTo.length; x++){
 	       		snappedToIds.push(snappedTo[x].id);
 	       }
-	       // alert(snappedToIds);
-	       // alert(xx);
-	       // alert(yy);
-	       // alert(x1);
-	       // alert(y1);
-	       // alert(x2);
-	       // alert(y2);
-	       // alert(x1>=0);
-	       if(x1>=0){
-	       		if(snappedToIds.indexOf("snaptarget"+x1+yy)>-1){
-	       			// alert("AA");
-	       		}
-	       		else bool = false;
-	       }
-	       // alert("qq1");
-	       if(y1>=0){
-	       		// alert("derp1");
-	       		if(snappedToIds.indexOf("snaptarget"+xx+y1)>-1){
-	       			// alert("AA");
-	       		}
-	       		else bool = false;
-	       }
-	       // alert("qq2");
-	       if(x1>=0&&y1>=0){
-	       		if(snappedToIds.indexOf("snaptarget"+x1+y1)>-1){
-	       			// alert("AA");
-	       		}
-	       		else bool = false;
-	       }
-	       // alert("qq3");
-			if(x2<=4){
-				// alert("derp2");
-	       		if(snappedToIds.indexOf("snaptarget"+x2+yy)>-1){
-	       			// alert("AA");
-	       		}
-	       		else bool = false;
-	       }
-	       // alert("qq4");
-	       if(y2<=4){
-	       		if(snappedToIds.indexOf("snaptarget"+xx+y2)>-1){
-	       			// alert("AA");
-	       		}
-	       		else bool = false;
-	       }
-	        // alert("qq5");
-	       if(x2<=4&&y2<=4){
-	       		if(snappedToIds.indexOf("snaptarget"+x2+y2)>-1){
-	       			// alert("AA");
-	       		}
-	       		else bool = false;
-	       }
-	        if(x2<=4&&y1>=0){
-	       		if(snappedToIds.indexOf("snaptarget"+x2+y1)>-1){
-	       			// alert("AA");
-	       		}
-	       		else bool = false;
-	       }
-	        if(x1>=0&&y2<=4){
-	       		if(snappedToIds.indexOf("snaptarget"+x1+y2)>-1){
-	       			// alert("AA");
-	       		}
-	       		else bool = false;
-	       }
-	        // alert("qq6");
+	       
 	       if(bool){
 	       		if(snappedToIds.indexOf("snaptarget"+xx+yy)>-1){
 	       			// alert("AA");
+	       			var positionOther = $("#snaptarget"+xx+yy).offset();
+	       			var otherLeft = positionOther.left;
+	       			var otherTop = positionOther.top;
+					var positionThis = $(this).offset();
+					var thisLeft = positionThis.left;
+					var thisTop = positionThis.top;
+					// alert(otherLeft);
+					// alert(otherTop);
+					// alert(thisLeft);
+					// alert(thisTop);
+					// alert("dd");
+					// alert(thisTop!=otherTop||thisLeft!=otherLeft);
+
+	       		// alert("the bool is "+bool);
+	       			if(thisTop!=otherTop||thisLeft!=otherLeft){
+	       				// alert("aa");
+	       				bool = false;
+	       			}
+
+	       		// alert("the bool is "+bool);
+	       			// alert("daheck");
 	       		}
-	       		else bool = false;
+	       		else {
+	       			// alert("deHeck2");
+	       			bool = false;
+	       		}
 	       }
+	       		// alert("the bool is "+bool);
 		       if(bool){		
 		    	   // alert("wooh");
-		    	   $("#"+this.id).draggable( "destroy" )
+		    	   $("#"+this.id).draggable("destroy");
+		    	  	numCorrect++;
+		    	  	// alert(numCorrect);
+		    	  	// alert(numNeeded);
+		    	  	// alert(numCorrect==numNeeded);
+		    	  	// alert("q");
+		    	  	if (numCorrect==numNeeded){
+		    	  		alert("fin!");
+		    	  	}
 		   		}
 	    }
 	         });
@@ -165,10 +133,10 @@
 <body>
   
 <br style="clear:both">
-<table id='snapTargets' class='pTable' border="0" cellspacing="0">
+<table id='snapTargets' class='pTable' border="0px" cellspacing="0px">
 	</table>
 
- <table id='puzzleTable' class='pTable' border="0" cellspacing="0">
+ <table id='puzzleTable' class='pTable' border="0px" cellspacing="0px">
 	</table>
 
 </body>
