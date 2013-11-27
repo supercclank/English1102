@@ -42,15 +42,18 @@
   	);
 
   function popList(){
+  	//alert("qq");
   	for(var x=0; x<5; x++){
 		for(var y=0; y<5; y++){
 				puzzleArray.push("<td> <div id='draggable"+x+y+"' class='draggable ui-widget-content'> <img src='GameVase "+x+y+".jpg'> </div> </td>");
 		  	}
   	}
+  //	alert("deropderp");
   	
   }
 
 function getRandomPiece(){
+//	alert("adsf1");
 	var index = Math.floor((Math.random()*puzzleArray.length));
 	var returnString = puzzleArray[index];
 	puzzleArray.splice(index,1);
@@ -60,7 +63,9 @@ function getRandomPiece(){
 }
 
   function makePuzzle(){
+//alert("q");
   	popList();
+//alert("q");
   	for(var x=0; x<5; x++){
   		$("#puzzleTable").append("<tr>");
 		for(var y=0; y<5; y++){
@@ -119,7 +124,7 @@ function getRandomPiece(){
 		    	   $("#"+this.id).draggable("destroy");
 		    	  	numCorrect++;
 		    	  	if (numCorrect==numNeeded){
-		    	  		alert("fin!");
+		    	  		 $("#correct").append("<a href='http://www.google.com'>--></a>");
 		    	  	}
 		   		}
 	    }
@@ -139,6 +144,6 @@ function getRandomPiece(){
 
  <table id='puzzleTable' class='pTable' border="0px" cellspacing="0px">
 	</table>
-
+<div id="correct"></div>
 </body>
 </html>
