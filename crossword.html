@@ -294,6 +294,7 @@
 					<br>
 					<br>
 					<br>
+					<br>
 							Across:
 								<br>
 								<br>
@@ -315,13 +316,14 @@
 			</td>
 			
 	</table>
-
+<div id="correct"></div>
 </body>
 <style type="text/css">
 #PuzzleArea
 {
+margin-top: -200px;
 width: 600px;
-height: 740px;
+height: 550px;
 }
 #Clues
 {
@@ -380,6 +382,9 @@ input.cell {
 	font-weight: bold;
 	color: #0B486B;
 }
+#Crossword td{
+	vertical-align: top;
+}
 </style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
 </script>
@@ -402,7 +407,7 @@ function check(){
 		}
 	}
 	if(numCorrect == totalLetters){
-		alert("puzzle complete");
+		$("#correct").append("<a href='http://www.google.com'>--></a>");
 	}
 }
 </script>
