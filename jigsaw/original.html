@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <style>
+
+  .draggable {
+          width: 100px;
+          height: 100px;
+          font-size: .9em;
+  }
+
+  .ui-widget-header p, .ui-widget-content p {
+          margin: 0;         
+          width : 100px;
+          height: 100px;
+  }
+
+  #puzzleTable{
+          float:left;
+  }
+
+  #snapTargets{
+          float:left;
+  }
+
+  </style>
+
+  <script>
+  var numCorrect = 0;
+  var numNeeded = 25;
+  var puzzleArray =[];
+
+
+
+  $(document).ready(
+          makePuzzle
+          );
+
+  function popList(){
+          //alert("qq");
+          for(var x=0; x<5; x++){
+                for(var y=0; y<5; y++){
+                                puzzleArray.push("<td> <div id='draggable"+x+y+"' class='draggable ui-widget-content'> <img src='GameVase "+x+y+".jpg'> </div> </td>");
+                         }
+          }
+  //        alert("deropderp");
+          
+  }
+
+function getRandomPiece(){
+//        alert("adsf1");
+        var index = Math.floor((Math.random()*puzzleArray.length));
+        var returnString = puzzleArray[index];
+        puzzleArray.splice(index,1);
+        //alert(returnString);
+        return returnString;
+        
+}
+
+  function makePuzzle(){
+//alert("q");
+          popList();
+//alert("q");
+          for(var x=0; x<5; x++){
+                  $("#puzzleTable").append("<tr>");
+                for(var y=0; y<5; y++){
+                                $("#puzzleTable tr:last").append(getRandomPiece());
+                         }
+                $("#puzzleTable").append("</tr>");
+          }
+
+
+        for(var x=0; x<5; x++){
+                         $("#snapTargets").append("<tr>");
+                        for(var y=0; y<5; y++){
+                                        $("#snapTargets tr:last").append("<td> <div id='snaptarget"+y+x+"' class='ui-widget-header'> <p></p> </div> </td>");
+                                 }
+                        $("#snapTargets").append("</tr>");
+                 }
+
+ }
+           $(function() {
+        $(".draggable").draggable({
+         snap: ".ui-widget-header", snapMode: "inner",
+         stop: function(event, ui) {
+         var snapped = $(this).data("ui-draggable").snapElements;
+         var id = $(this).children('img').attr("src");
+         var xx = parseInt(id[9]);
+         var yy = parseInt(id[10]);
+         var x1 = xx - 1;
+         var y1 = yy - 1;
+         var x2 = xx + 1;
+         var y2 = yy + 1;
+         var bool = true;
+         var snappedTo = $.map(snapped, function(element) {
+         return element.snapping ? element.item : null;
+         });
+         var snappedToIds = [];
+         for (var x=0; x<snappedTo.length; x++){
+                         snappedToIds.push(snappedTo[x].id);
+         }
+         if(bool){
+                         if(snappedToIds.indexOf("snaptarget"+xx+yy)>-1){
+                                 var positionOther = $("#snaptarget"+xx+yy).offset();
+                                 var otherLeft = positionOther.left;
+                                 var otherTop = positionOther.top;
+                                        var positionThis = $(this).offset();
+                                        var thisLeft = positionThis.left;
+                                        var thisTop = positionThis.top;
+                                 if(thisTop!=otherTop||thisLeft!=otherLeft){
+                                         bool = false;
+                                 }
+                         }
+                         else {
+                                 bool = false;
+                         }
+         }
+                 if(bool){                
+                          $("#"+this.id).draggable("destroy");
+                                  numCorrect++;
+                                  if (numCorrect==numNeeded){
+                                           $("#correct").append("<a href='http://www.google.com'>--></a>");
+                                  }
+                                 }
+         }
+         });
+        
+        
+        });
+
+  
+  </script>
+</head>
+<body>
+  
+<br style="clear:both">
+<table id='snapTargets' class='pTable' border="0px" cellspacing="0px">
+        </table>
+
+ <table id='puzzleTable' class='pTable' border="0px" cellspacing="0px">
+        </table>
+<div id="correct"></div>
+</body>
+</html>

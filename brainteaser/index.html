@@ -60,7 +60,7 @@
  answers.push("the aftermath");
 
 $(document).ready(makePuzzle);
-var numNeeded = 4;
+var numNeeded = 5;
 var numCorrect = 0;
 function makePuzzle(){
 		 	$(".pTable").append(" <tr> ");
@@ -78,7 +78,7 @@ function check(that){
 	var id = $(that).parent().attr('id');
 	var promptNumber = id.substr(6);
 	var y = $('#' + id + ' > input').val();
-	if (y===answers[parseInt(promptNumber)-1]){
+	if (y.toLowerCase()===answers[parseInt(promptNumber)-1]){
 		setPicture(id);
 		numCorrect++;
 	}

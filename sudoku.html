@@ -1,17 +1,145 @@
-<!DOCTYPE html>
-<html>
-<link href="main.css" rel="stylesheet" type="text/css" />
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
 
 <head>
+<title>Sudoku</title>
+<link href='http://fonts.googleapis.com/css?family=Signika+Negative:600' rel='stylesheet' type='text/css'>
+<style type="text/css">
+
+body{
+	background: #222;
+}
+
+#correct{
+	color: #fff;
+	width: 100%;
+	margin: 10px 0;
+	font-size: 16px;
+	line-height: 20px;
+	font-family:  'Signika Negative', sans-serif;
+}
+
+#correct .text{
+	float: left;
+	display: block;
+	width: 100%;
+}
+
+#correct a, #correct a:link, #correct a:visited
+{
+    display: block;
+    float: right;
+    font-size: 40px;
+    line-height: 50px;
+    height: 50px;
+    width: 100%;
+    text-align: left;
+    text-decoration: none;
+    color: #fff;
+}
+
+#correct a:hover
+{
+    color: #ffff00;
+}
+
+#container{
+	width: 700px;
+	margin: auto;
+	height: 500px;
+}
+
+#right{
+	width: 210px;
+	margin-top: 100px;
+	float: right;
+	text-align: left;
+}
+
+#PuzzleArea
+{
+float: left;
+width: 470px;
+/*width: 360px;
+height: 370px;*/
+}
+
+#Crossword {
+	background: #fff;
+	margin: auto;
+}
+
+input.cell {
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	height: 45px;
+	width: 48px;
+	font-weight: bold;
+	font-size: 25px;
+	background-color: white;
+	color: #000;
+	line-height: 45px;
+}
+
+.corner td{
+	vertical-align: middle;
+	border:1px solid gray;
+	width: 48px;
+	height: 45px;
+	line-height: 45px;
+	font-size: 25px;
+	text-align: center;
+}
+.corner{
+	float: left;
+	border:1px solid gray;
+}
+
+.corner td input{
+	height: 45px
+}
+
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+var solution = "7814159432364754273985869459648726918376894289756";
+var totalLetters = solution.length;
+
+$(document).ready(function() {
+	$('td.empty').append("<input type='text' maxlength='1' class='cell'></input>");
+});
+
+function check(){
+	var guess=[];
+	var numCorrect = 0;
+	$('.cell').each(function(){guess.push($(this).val());});
+
+	for (var x =0; x < guess.length; x++){
+		if(guess[x].toUpperCase() === solution[x].toUpperCase()){
+			numCorrect++;
+		}
+	}
+	if(numCorrect == totalLetters){
+		$("#correct .text").html("You've solved the puzzle! Press next to continue. ");
+		if($("#correct > a").length == 0)
+			$("#correct").append("<a href='frames/5.html'>Next &#187;</a>");
+	} else { 
+		$("#correct .text").html("Sorry, only " + numCorrect + " out of " + totalLetters + " of your numbers are right. ");
+	}
+}
+</script>
 
 </head>
 <body>
-
-	<table id='space' border="0" cellspacing="0">
-		<tr>
-			<td>
-				<div id="PuzzleArea" class="slidePuzzle">
-					<table id="Crossword" border="0" cellspacing="0">
+<div id="container">
+				<div id="PuzzleArea">
+					<table id="Crossword" border="0" cellspacing="0" cellpadding="0">
 						<tr>
 							<td>
 								<table class="corner" border ="0" cellspacing='0'>
@@ -191,96 +319,12 @@
 						<tr/>							
 					</table>
 				</div>
-				<button onclick="check()">Check Puzzle</button>
-			</td>
-
-			<td>
-
-			</td>
-
-			
-	</table>
-<div id="correct"></div>
+		<div id="right">
+			<button onclick="check()">Check Puzzle</button>
+			<div id="correct">
+				<span class="text">Matt's doing Sudoku! Let's see if you can help him solve this puzzle. </span>
+			</div>
+		</div>
+</div>
 </body>
-<style type="text/css">
-#PuzzleArea
-{
-border: solid red;
-margin-top: 000px;
-width: 360px;
-height: 370px;
-}
-.empty
-{
-border:1px solid gray;
-width: 35px;
-height: 35px;
-font-size: 25px;
-line-height: 35px;
-}
-
-input.cell {
-	z-index: 20;
-	border: 0px;
-	margin: 0px;
-	padding: 0px;
-	text-align: center;
-	position:relative;
-	top:0;
-	left: 0;
-	height: 35px;
-	width: 35px;
-	font-weight: bold;
-	font-size: 25px;
-	background-color: white;
-	color: black;
-	border-radius: 0px;
-	line-height: 35px;
-}
-
-.corner td{
-	vertical-align: top;
-}
-.corner{
-	border: solid gray;
-	margin: -3px;
-	float: left;
-	vertical-align: center;
-}
-.blank
-{
-	border:1px solid gray;
-	width: 35px;
-	height: 35px;
-	font-size: 25px;
-	text-align: center;
-	line-height: 35px;
-}
-</style>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
-<script>
-var solution = "7814159432364754273985869459648726918376894289756";
-var totalLetters = solution.length;
-$(document).ready(
-new function(){
-	$('td.empty').append("<input type='text' maxlength='1' class='cell' style='height:35px'></input>");
-}
-	);
-
-function check(){
-	var guess=[];
-	var numCorrect = 0;
-	$('.cell').each(function(){guess.push($(this).val());});
-	alert(guess);
-	for (var x =0; x <guess.length; x++){
-		if(guess[x].toUpperCase() === solution[x].toUpperCase()){
-			numCorrect++;
-		}
-	}
-	if(numCorrect == totalLetters){
-		$("#correct").append("<a href='http://www.google.com'>--></a>");
-	}
-}
-</script>
 </html>

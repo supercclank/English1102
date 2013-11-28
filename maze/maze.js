@@ -110,11 +110,12 @@ function MazeGame(id, x, y, m) {
         if(!(place instanceof MazeSquare))
             return false;
         //place.append(this.exit());
-        place.css('background', '#bbb');
     }
 
     this.win = function() {
-        alert("You win");
+        $('#you-rock').html("Hey you found Matt's English class! Click Next to to go to class. ");
+        if($('#correct > a').length == 0)
+            $('#correct').append('<a href="../frames/4.html">Next &#187;</a>');
     }
 
     this.move = function(dest) {
@@ -282,7 +283,8 @@ function MazeSquare(maze, x, y, a) {
     }
 
     this.subclass = function() {
-        return this.active ? 'path' : 'wall';
+        return (this.active ? 'path' : 'wall')
+             + (this.isExit() ? ' exit': '');
     }
 
     this.setExit = function() {
@@ -315,6 +317,7 @@ function MazeSquare(maze, x, y, a) {
         this.inside = s;
         $('#' + this.getId()).append(s);
     }
+
 
     this.clear = function() {
         this.inside = "";
