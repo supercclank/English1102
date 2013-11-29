@@ -71,6 +71,7 @@
   var numCorrect = 0;
   var numNeeded = 25;
   var puzzleArray =[];
+  var img_name = 'img/GameVase ';
 
 
 
@@ -82,7 +83,7 @@
           //alert("qq");
           for(var x=0; x<5; x++){
                 for(var y=0; y<5; y++){
-                                puzzleArray.push("<td> <div id='draggable"+x+y+"' class='draggable ui-widget-content'> <img src='img/GameVase "+x+y+".jpg'> </div> </td>");
+                                puzzleArray.push("<td> <div id='draggable"+x+y+"' class='draggable ui-widget-content'> <img src='" + img_name +x+y+".jpg'> </div> </td>");
                          }
           }
   //        alert("deropderp");
@@ -127,13 +128,17 @@ function getRandomPiece(){
          stop: function(event, ui) {
            var snapped = $(this).data("ui-draggable").snapElements;
            var id = $(this).children('img').attr("src");
-           var xx = parseInt(id[9]);
-           var yy = parseInt(id[10]);
+
+           
+           var xx = parseInt(id[img_name.length]);
+           var yy = parseInt(id[img_name.length + 1]);
+
            var x1 = xx - 1;
            var y1 = yy - 1;
            var x2 = xx + 1;
            var y2 = yy + 1;
            var bool = true;
+
            var snappedTo = $.map(snapped, function(element) {
              return element.snapping ? element.item : null;
            });
@@ -161,7 +166,7 @@ function getRandomPiece(){
                             $("#"+this.id).draggable("destroy");
                                     numCorrect++;
                                     if (numCorrect==numNeeded){
-                                             $("#correct").html("<a href='../frames/2.html'>You fixed the vase! Carry onwards &#187;</a>");
+                                             $("#correct").html("<a href='../frames/6.html'>You fixed the vase! Carry onwards &#187;</a>");
                                     }
                                    }
          }
