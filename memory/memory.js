@@ -6,10 +6,6 @@ function cardOnClick(card, game){
 	if(card.hidden() == false || $('.shown').length >= 2)
 		//Doesn't do anything if the card's already been shown or there are too many shown cards
 		return; 
-
-	if(!game.going())
-		//Starts the game on the first click
-		game.start(); 
 	
 	game.unhideCard(card_id);
 
@@ -32,12 +28,15 @@ function cardOnClick(card, game){
 		var card1 = cards[0]; 
 		var card2 = cards[1]; 
 
-		if(card1.matchNumber(card2)){
+		if(card1.match(card2)){
 			game.matchCard(id1);
 			game.matchCard(id2);
 
 			//Checks to see if the game is won yet
-			game.win();
+			if(game.win()) {
+				$('#correct').append('<a href="../frames/3.html">Next  &#187;</a>');
+				$('#you-rock').html("Great, all the socks have been matched! ");
+			}
 		}else{
 			game.hideCard(id1, 500);
 			game.hideCard(id2, 500);
@@ -53,9 +52,7 @@ function cardOnClick(card, game){
 function Game(){
 	var deck;
 
-	var isGoing = false; //State of the game. 
-
-	var timer = new StopWatch();
+	var isGoing = true; //State of the game
 
 	this.idFromString = function(str){
 		if(typeof(str) == 'string')
@@ -66,7 +63,7 @@ function Game(){
 	this.getCard = function(index){
 		if(typeof(index) == 'string')
 			index = this.idFromString(index);
-		return deck.get(index);
+		return this.deck.get(index);
 	};
 
 	this.showCard = function(id){
@@ -77,34 +74,15 @@ function Game(){
 	};
 
 	this.getDeck = function(){
-		//deck = new Deck();
-		//return;
-
-		var num_cards = $('input[name=num-cards]:checked').val(); 
-		//alert(num_cards);
-		var numbers; //Nummbers skipped
-		var suits; //Suits skipped
-		
-		if(num_cards == 24){
-			numbers = [13]; 
-			suits = [1, 2]; 
-		}else if(num_cards == 48){
-			numbers = [13]; 
-		}else{
-			numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-			suits = []; 
-		}
-
-		deck = new Deck(suits, numbers); 
-		deck.shuffle(); 
+		this.deck = new Deck();
+		this.deck.populate();
+		this.deck.shuffle(); 
 	};
 
 	this.addCards = function(){
 		this.getDeck();
-
 		var num_rows = 4; 
-		var num_cols = deck.length() / num_rows; 
-
+		var num_cols = this.deck.length() / num_rows; 
 		var k = 0;
 		for(i = 0; i < num_rows; i++){
 			$('#game').append('<br />');
@@ -116,6 +94,7 @@ function Game(){
 
 		var game = this; 
 		$('.card').click(function(){
+
 			cardOnClick($(this), game);
 		});
 	};
@@ -155,40 +134,9 @@ function Game(){
 		$('#card-' + id).addClass('matched');
 	};
 
-	this.going = function(set){
-		if(set != null)
-			this.isGoing = set; 
-		return this.isGoing; 
-	};
-
-	this.duration = function(){
-		return timer.duration(); 
-	};
-
-	this.start = function(){
-		this.going(true);
-		timer.start(); 
-	};
-
-	this.stop = function(){
-		this.going(false);
-		timer.stop(); 
-	};
-
-	this.restart = function(){
-		this.stop(); 
-		timer.reset();
-
-		this.removeCards();
-
-		this.addCards();
-	};
-
 	this.win = function(){
-		if($('.matched').length < deck.length())
+		if($('.matched').length < this.deck.length())
 			return false; 
-		this.stop(); 
-		//alert(this.duration());
 		return true;
 	};
 
@@ -200,13 +148,14 @@ $('document').ready(function(){
 	var game = new Game(); 
 
 	game.addCards(); 
-
+/*
 	$('#new-game').click(function(){
 		game.restart(); 
-	});
+	});matchCard
 
 	setInterval(function(){
 		$("#timer").html(game.duration());
 	}, 100);
+*/
 	//$('#game').append(deck.length());
 });

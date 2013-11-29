@@ -21,34 +21,20 @@ function zeroFill( number, width )
   return number + ""; // always return a string
 }
 
-function Deck(skippedSuits, skippedNumbers, idOrder){
-	this.cards = Array(); 
+function Deck() {
+	this.cards = Array();
 
-	this.populate = function(skippedSuits, skippedNumbers, idOrder){
-		var l = 0; 
-		for(k = 13; k >= 1; k--){
-			if($.isArray(skippedNumbers) && $.inArray(k, skippedNumbers) >= 0)
-				continue; 
-
-			for(i = 1; i <= 4; i++){
-				if($.isArray(skippedSuits) && $.inArray(i, skippedSuits) >= 0)
-					continue; 
-				//Adds cards to the deck 
-				var card = new Card(i, k);
-				if(idOrder == true)
-					this.cards[card.id()] = card; 
-				else
-					this.cards[l] = card; 
-				l++;
-			}
-		}
-	};
-
-	if(skippedSuits != 'empty')
-		this.populate(skippedSuits, skippedNumbers, idOrder); 
-
-	this.addCards = function(arr){
-		this.cards.concat(arr);
+	this.populate = function(){
+		this.cards = new Array(
+			new Card(1), new Card(1),
+			new Card(2), new Card(2),
+			new Card(3), new Card(3),
+			new Card(4), new Card(4),
+			new Card(5), new Card(5),
+			new Card(6), new Card(6),
+			new Card(7), new Card(7),
+			new Card(8), new Card(8)
+			);
 	};
 
 	this.getCards = function(){
@@ -57,11 +43,11 @@ function Deck(skippedSuits, skippedNumbers, idOrder){
 
 	this.getCard = function(id){
 		return this.cards[id];
-	}
+	};
 
 	this.get = function(index){
 		return this.cards[index];
-	}
+	};
 
 	this.length = function(){
 		return this.cards.length; 
@@ -94,96 +80,30 @@ function Deck(skippedSuits, skippedNumbers, idOrder){
 	this.preload(); 
 }
 
-function Card(suit, number, hidden){
-	//Takes suits 1-4
-	//Numbers 1-13
-	this.suit = suit; 
+function Card(number){
 	this.number = number; 
+	this.isHidden = true;
 
-	//Correct out of bounds suits
-	if(this.suit > 4)
-		this.suit = 4; 
-	else if(this.suit < 1)
-		this.suit = 1; 
-
-	//Correct out of bounds numbers
-	if(this.number > 13)
-		this.number = 13; 
-	else if(this.number < 1)
-		this.number = 1; 
-	
-	if(hidden != null)
-		this.isHidden = hidden;
-	else
-		this.isHidden = true; 
-
-	suits = [null, 'clubs', 'spades', 'hearts', 'diamonds'];
-	numbers = [null, 'two', 'three', 'four', 'five', 'six', 
-				'seven', 'eight', 'nine', 'ten', 'jack', 'queen', 'king', 'ace'];
-	this.numberId = function(){
-		if(this.number == 13)
-			return 1; 
-		return this.number + 1; 
-	};
-
-	this.suitId = function(){
-		return this.suit; 
-	};
-
-	this.getColor = function(){
-		if(this.suit <= 2)
-			return 'black';
-		return 'red';
+	this.hidden = function(h) {
+		if(h != null)
+			this.isHidden = h;
+		return this.isHidden;
 	}
 
-	this.matchColor = function(card){
-		return this.getColor() == card.getColor(); 
-	};
-
-	this.getSuit = function(){
-		return suits[this.suit];
-	};
-
 	this.getNumber = function(){
-		return numbers[this.number];
+		return this.number; 
 	};
 
 	this.width = function(){
-		return 72; 
+		return 100; 
 	};
 
 	this.height = function(){
-		return 96;
+		return 100;
 	}
 
 	this.match = function(card){
-		return this.matchSuit(card) && this.matchNumber(card); 
-	};
-
-	this.matchSuit = function(card){
-		if(typeof(card) == 'object')
-			return this.getSuit() == card.getSuit(); 
-		return false;
-	};
-
-	this.matchNumber = function(card){
-		if(typeof(card) == 'object')
-			return this.getNumber() == card.getNumber(); 
-		return false; 
-	};
-
-	this.getName = function(){
-		return this.getNumber() + ' of ' + this.getSuit(); 
-	};
-
-	this.id = function(){
-		return (13 - this.number) * 4 + this.suit - 1; 
-	};
-
-	this.hidden = function(set){
-		if(set != null)
-			this.isHidden = set;  
-		return this.isHidden; 
+		return this.getNumber() == card.getNumber(); 
 	};
 
 	this.getImage = function(){
@@ -193,11 +113,11 @@ function Card(suit, number, hidden){
 	};
 
 	this.getFront = function(){
-		return 'cards/' + (this.id() + 1) + '.png';
+		return 'socks/sock' + (this.getNumber()) + '.png';
 	}
 
 	this.getBack = function(){
-		return 'cards/b2fv.png';
+		return 'socks/shadowSock.png';
 	};
 
 	this.preload = function(){
@@ -205,56 +125,3 @@ function Card(suit, number, hidden){
 	};
 }
 
-
-function StopWatch(){
-
-	var startTime = null; 
-	var stopTime = null; 
-	var running = false; 
-
-	function getTime(){
-		var day = new Date();
-		return day.getTime();
-	}
-
-	this.start = function(){ 
-
-		if (running == true)
-	  	  return;
-		else if (startTime != null) 
-		    stopTime = null; 
-
-		running = true;    
-		startTime = getTime();
-
-	};
-
-	this.stop = function(){ 
-
-		if (running == false)
-		    return;    
-
-		stopTime = getTime();
-		running = false; 
-
-	};
-
-	this.reset = function(){
-		startTime = null; 
-		stopTime = null; 
-		running = false;
-	};
-
-	this.duration = function(){ 
-		var dif; 
-		if (startTime == null)
-			diff = 0; 
-		else if (stopTime == null)
-			diff = (getTime() - startTime);
-		else
-			diff = (stopTime - startTime);
-		var seconds = Math.floor(diff / 1000);
-		var subSeconds = Math.round((diff % 1000) / 10);
-		return seconds + ':' + zeroFill(subSeconds, 2); 
-	};
-}
