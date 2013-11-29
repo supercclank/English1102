@@ -1,17 +1,177 @@
-<!DOCTYPE html>
-<html>
-<link href="main.css" rel="stylesheet" type="text/css" />
-
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
 <head>
+<link href='http://fonts.googleapis.com/css?family=Signika+Negative:600' rel='stylesheet' type='text/css'>
+<style type="text/css">
+html {
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
 
+body{
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: #222;
+	color: #fff;
+	font-family:  'Signika Negative', sans-serif;
+}
+
+
+#correct 
+{
+    font-weight: bold;
+    width: 88%;
+    margin: 0 6%;
+    float: left;
+    height:50px;
+    color: #fff;
+    font-size: 22px;
+    line-height: 25px;
+    text-align: left;
+    font-family:  'Signika Negative', sans-serif;
+}
+
+#correct #you-rock
+{
+    display: block;
+    float: left;
+    width: 550px;
+}
+
+
+#correct a, #correct a:link, #correct a:visited
+{
+    display: block;
+    float: right;
+    font-size: 40px;
+    line-height: 50px;
+    height: 50px;
+    width: 150px;
+    text-align: right;
+    text-decoration: none;
+    color: #fff;
+}
+
+#correct a:hover
+{
+    color: #ffff00;
+}
+
+#container{
+	width: 900px;
+	margin: auto;
+}
+
+#PuzzleArea
+{
+width: 485px;
+max-height: 485px;
+float: left;
+}
+#Clues
+{
+width: 415px;
+height: 485px;
+float: left;
+font-weight: bold;
+background: #fff;
+color: #222;
+}
+
+#Clues button {
+	float: right;
+}
+
+#Clues p {
+	text-indent: -22px;
+	padding-left: 22px;
+	margin: 8px 3px;
+}
+
+#Clues th {
+  font-weight: bold;
+  font-size: 40px;
+  text-align: left;
+}
+.empty
+{
+width: 32px;
+height: 32px;
+font-size: 24px;
+}
+.blank
+{
+	padding: 0px;
+	height: 32px;
+	width: 32px;
+	background-color: black;
+}
+input.cell {
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	height: 30px;
+	width: 30px;
+	font-weight: bold;
+	font-size: 25px;
+	background-color: white;
+	color: black;
+	border: 1px solid #000;
+}
+.tiny {
+	position: absolute;
+	z-index: 100;
+	margin-top: -2px;
+	margin-left: 1px;
+	float: left;
+	font-size: .5em;
+	font-weight: bold;
+	color: #0B486B;
+}
+#Crossword td{
+	vertical-align: top;
+}
+</style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+var solution = "ENBORINGGILVNCTIBRAINTEASERSSDETTHPUZZLENRDODIOGOSKA6UM4EESSAY";
+var totalLetters = solution.length;
+$(document).ready(function() {
+	$('td.empty').append("<input type='text' maxlength='1' class='cell' />");
+});
+
+function check(){
+	var guess=[];
+	var numCorrect = 0;
+	$('.cell').each(function(){guess.push($(this).val());});
+	for (var x =0; x <guess.length; x++){
+		if(guess[x].toUpperCase() === solution[x].toUpperCase()){
+			numCorrect++;
+		}
+	}
+	if(numCorrect == totalLetters){
+		$('#you-rock').html("You got all the crossword answers right! Click next to continue. ");
+		$("#correct").append("<a href='frames/8.html'>Next &#187;</a>");
+	} else {
+		$('#you-rock').html("Sorry! At least one of these answers doesn't seem quite right. ");
+	}
+}
+</script>
 </head>
 <body>
-
-	<table id='space' border="0" cellspacing="0">
-		<tr>
-			<td>
-				<div id="PuzzleArea" class="slidePuzzle">
-					<table id="Crossword" border="0" cellspacing="0">
+<div id="container">
+				<div id="PuzzleArea">
+					<table id="Crossword" border="0" cellspacing="0" cellborder="0">
 
 						<tr>
 							<td id="1-1" class="blank"></td>
@@ -253,162 +413,56 @@
 								
 					</table>
 				</div>
-				<button onclick="check()">Check Puzzle</button>
-			</td>
-
-			<td>
-				<div id="Clues">
-					<h1>Clues</h1>
-					<p>
-
-							Down:
-								<br>
-								<br>
-								&nbsp;&nbsp;&nbsp;&nbsp; 1. Matt's first high school class
-								<br>
-								<br>
-								&nbsp;&nbsp;&nbsp;&nbsp; 3. What was Matt's first &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gaming system
-								<br>
-								<br>
-								&nbsp;&nbsp;&nbsp;&nbsp; 4. Matt's parents convined him that &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;____ were not a priority in life
-								<br>
-								<br>
-								&nbsp;&nbsp;&nbsp;&nbsp; 5. What knocks over the vase
-								<br>
-								<br>
-								&nbsp;&nbsp;&nbsp;&nbsp; 6. Game Matt developed an &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addiction to
-								<br>
-								<br>
-								&nbsp;&nbsp;&nbsp;&nbsp; 8. Matt played ____ puzzles the &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;first day of school	
+				<table id="Clues">
+					<tr>
+						<th colspan="2">Clues
+							<button type="button" onclick="check();">Check Puzzle</button>
+						</th>
+					</tr>
+					<tr>
+						<td>Down:</td>
+						<td>Across:</td>
+					</tr>
+					<tr>
+						<td valign="top">
+								<p>1. My first high school class</p>
+								<p>
+								3. When I was a kid, my first gaming system was the ____
+								</p>
+								<p>
+								4. My parents convinced me that ____ were not a priority in life
+								</p>
+								<p>
+								5. What knocked over my vase? 
+								</p>
+								<p>
+								6. As a kid, I developed an addiction to this one game
+								</p>
+								<p>
+								8. On the first day of high school, I played ____ puzzles in class
+								</p>
 						<br>
 					</p>
-				</div>
-			</td>
-			<td>
-				<div id="Clues">
-				<p>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-					<br>
-							Across:
-								<br>
-								<br>
-								&nbsp;&nbsp;&nbsp;&nbsp; 2. Matt though the first day of class &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;was ____
-								<br>
-								<br>
-								&nbsp;&nbsp;&nbsp;&nbsp; 7. Matt enjoyed doing ____ in his &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;school's gifted program
-								<br>
-								<br>
-								&nbsp;&nbsp;&nbsp;&nbsp; 9. Matt's favorite type of game
-								<br>
-								<br>
-								&nbsp;&nbsp;&nbsp;&nbsp; 10. Matt's first assignment was to &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do an ____
-								<br>
-						<br>
-						<br>
-					</p>
-				</div>
-			</td>
-			
-	</table>
-<div id="correct"></div>
+				</td>
+				<td valign="top">
+								<p>
+								2. I thought the first day of class was kinda ____
+								</p>
+								<p>
+								7. In elementary school, I always enjoyed doing ____
+								</p>
+								<p>
+								9. My favorite genre of games! 
+								</p>
+								<p>
+								10. My first high school class assignment
+								</p>
+				</td>
+				</tr>
+				</table>
+	<div id="correct">
+		<span id="you-rock">Help Matt recall details about his life to use in his essay by solving this crossword. </span>
+	</div>
+</div>
 </body>
-<style type="text/css">
-#PuzzleArea
-{
-margin-top: -200px;
-width: 600px;
-height: 550px;
-}
-#Clues
-{
-width: 260px;
-height: 740px;
-margin-top: -20px;
-font-weight: bold;
-
-}
-#Clues h1 {
-  font-weight: bold;
-  font-size: 64px;
-  text-align: center;
-}
-.empty
-{
-border:1px solid gray;
-width: 35px;
-height: 35px;
-font-size: 25px;
-}
-.blank
-{
-	border: 0px;
-	margin: 0px;
-	padding: 0px;
-	height: 35px;
-	width: 35px;
-	background-color: black;
-	border-radius: 0px;
-}
-input.cell {
-	z-index: 20;
-	border: 0px;
-	margin: 0px;
-	padding: 0px;
-	text-align: center;
-	position:relative;
-	top:0;
-	left: 0;
-	height: 35px;
-	width: 35px;
-	font-weight: bold;
-	font-size: 25px;
-	background-color: white;
-	color: black;
-	border-radius: 0px;
-}
-.tiny {
-	position: absolute;
-	z-index: 100;
-	margin-top: -2px;
-	margin-left: 1px;
-	float: left;
-	font-size: .4em;
-	font-weight: bold;
-	color: #0B486B;
-}
-#Crossword td{
-	vertical-align: top;
-}
-</style>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-</script>
-<script>
-var solution = "ENBORINGGILVNCTIBRAINTEASERSSDETTHPUZZLENRDODIOGOSKA6UM4EESSAY";
-var totalLetters = solution.length;
-$(document).ready(
-new function(){
-	$('td.empty').append("<input type='text' maxlength='1' class='cell' style='height:35px'></input>");
-}
-	);
-
-function check(){
-	var guess=[];
-	var numCorrect = 0;
-	$('.cell').each(function(){guess.push($(this).val());});
-	for (var x =0; x <guess.length; x++){
-		if(guess[x].toUpperCase() === solution[x].toUpperCase()){
-			numCorrect++;
-		}
-	}
-	if(numCorrect == totalLetters){
-		$("#correct").append("<a href='http://www.google.com'>--></a>");
-	}
-}
-</script>
 </html>

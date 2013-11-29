@@ -1,9 +1,16 @@
-<html>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+ 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"> 
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 
 <script type="text/javascript" src="tetris.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Signika+Negative:600' rel='stylesheet' type='text/css'>
+
 <style>
+
 body{
     background: #222;
     color: #fff;
@@ -19,15 +26,70 @@ td{
     background-color:#000;
 }
 
+#tcont{
+    width: 100%;
+    float: left;
+}
+
+#container{
+    width: 700px;
+    margin: auto;
+}
+
 #tetrisNextDisplay{
     width:50px;
+}
+
+
+#correct 
+{
+    font-weight: bold;
+    width: 100%;
+    float: left;
+    height:50px;
+    color: #fff;
+    font-size: 22px;
+    line-height: 25px;
+    text-align: left;
+    font-family:  'Signika Negative', sans-serif;
+}
+
+#correct #you-rock
+{
+    display: block;
+    float: left;
+    width: 550px;
+}
+
+
+#correct a, #correct a:link, #correct a:visited
+{
+    display: block;
+    float: right;
+    font-size: 40px;
+    line-height: 50px;
+    height: 50px;
+    width: 150px;
+    text-align: right;
+    text-decoration: none;
+    color: #fff;
+}
+
+#correct a:hover
+{
+    color: #ffff00;
 }
 
 </style>
 
 </head>
 <body>
-<a href="../index.html">Back to the main site</a>
+<div id="container">
+    <div id="tcont">
     <div id='tetris'></div><p id="error"></p>
+    </div>
+    <div id="correct"><span id="you-rock">Matt's taking a break and playing Tetris. Play Tetris with him for as long as you want. </span>
+    <a href="../frames/7.html">Next &#187;</a></div>
+</div>
 </body>
 </html>

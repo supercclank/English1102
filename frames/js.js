@@ -1,15 +1,14 @@
 function frameHandler() {
     this.count = -1;
     this.textCount = 0;
+    this.stopped = false;
 
     this.resetText = function() {
         this.textCount = 0;
     }
 
-    this.text = function() {
-        t = $('#invisible > .block:eq(' 
-            + this.count + ') p:eq(' + this.textCount  + ')');
-        if(t.length == 0)
+    this.getText = function(t) {
+         if(t.length == 0)
             return false;
         image = '';
         if(t.attr('abbr')) {
@@ -20,16 +19,37 @@ function frameHandler() {
         return  image + t.html();
     }
 
+    this.text = function() {
+        t = $('#invisible > .block:eq(' 
+            + this.count + ') p:eq(' + this.textCount  + ')');
+       return this.getText(t);
+    }
+
+    this.setText = function(t) {
+        $('#container .textarea .text').html(t);
+    }
+
     this.get = function() {
         r = $('#invisible > .block:eq(' + this.count + ')');
         return r;
     }
 
     this.advanceHook = function(i, j) {
-        //Option function to be overwritten
+        //Optional function to be overwritten
+    }
+
+    this.stopAdvancement = function() {
+        this.stopped = true;
+    }
+
+    this.continueAdvancement = function() {
+        this.stopped = false; 
     }
 
     this.advance = function() {
+        if(this.stopped) {
+            return;
+        }
         if(!this.text()) {
             $('#container > div:first').slideDown(500);
             this.count++;
@@ -42,7 +62,7 @@ function frameHandler() {
             this.resetText();
         }
         if(this.text()) {
-            $('#container .textarea .text').html(this.text());
+            this.setText(this.text());
             this.textCount++;
         }
         this.advanceHook(this.count, this.textCount - 1);
